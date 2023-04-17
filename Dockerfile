@@ -41,6 +41,7 @@ RUN apt-get update \
     software-properties-common \
     gcc \
     git \
+    cmake \
     && rm -rf /var/lib/apt/lists/* 
 
 # Install R library dependencies
