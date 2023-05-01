@@ -60,6 +60,7 @@ RUN R -q -e "install.packages('patchwork')"
 RUN R -q -e "install.packages('GGally')"
 RUN R -q -e "install.packages('ggridges')"
 RUN R -q -e "install.packages('pROC')"
+RUN R -q -e "install.packages('gridExtra')"
 
 # Install Python 3.8 as 3.10 has issues with dependencies (numpy)
 RUN wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz \
