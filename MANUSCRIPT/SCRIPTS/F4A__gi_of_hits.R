@@ -23,4 +23,4 @@ all_gi_scores <- ggplot(gi, aes(y = reorder(sorted_gene_pair, Total_hits), x = m
   theme(plot.margin = unit(c(1, 1, 1, 1), "lines"))
 
 # Save GI plot of all hits
-ggsave(file.path(output_plot_file, 'PLOTS', 'F4A__all_gi_scores.png'), all_gi_scores, dpi = 300, width = 100, height = 280, units = "mm") 
+ggsave(file.path(output_plot_dir, 'F4A__all_gi_scores.png'), all_gi_scores, dpi = 300, width = 100, height = 280, units = "mm") 

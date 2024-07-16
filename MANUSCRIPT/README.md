@@ -19,12 +19,12 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
     * A: `MANUSCRIPT/SCRIPTS/F4A__gi_of_hits.R`
     * B: `MANUSCRIPT/SCRIPTS/F4B__pie_all_gene_pairs.R`
     * C: `MANUSCRIPT/SCRIPTS/F4C__number_of_times_a_hit_pie.R`
-    * D: ``
+    * D: `MANUSCRIPT/SCRIPTS/F4D__pie_chart_of_hits_by_cancer_type.R`
   * Output(s):
     * A: `F4A__all_gi_scores.png`
     * B: `F4B__pie_chart_frequency_of_all_pairs.png`
     * C: `F4C__pie_chart_hit_frequency_altered_colours.png`
-    * D: ``
+    * D: `MANUSCRIPT/PLOTS/F4D__pie_chart_of_hits_by_cancer_type.png`
 
 * **Figure 5**
   * Script:
