@@ -27,29 +27,41 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
     * D: `MANUSCRIPT/PLOTS/F4D__pie_chart_of_hits_by_cancer_type.png`
 
 * **Figure 5**
-  * Script:
+  * Script(s):
     * A: `MANUSCRIPT/SCRIPTS/F5A__correlation_of_median_hit_GI_with_number_of_hits.R`
     * B: `MANUSCRIPT/SCRIPTS/F5B__range_of_GI_scores.R`
     * C: `MANUSCRIPT/SCRIPTS/F5C__ranking_of_top_50percent_hits.R`
     * D: 
+    * E:
+    * F:  
   * Output(s):
     * A: `F5A__median_GI_of_hits_per_pair_v_total_hits.png`
     * B: `F5B__GI_range_of_hits_per_cell_line.png`
     * C: `F5C__cell_line_ranking_of_hits_in_more_than_50pct_of_lines.png`
-    * D:
+    * D: 
+    * E:
+    * F:  
 
 * **Figure 6**
-  * Script:
-    * 
+  * Script(s):
+    * A: `MANUSCRIPT/SCRIPTS/F6A__A549_top_hits_for_imaging_GI_scores.R`
+    * B: `imaging_analysis/SCRIPTS/imaging_analysis.R`
+    * C:
   * Output(s):
-    * 
-  * 
+    * A: `MANUSCRIPT/PLOTS/F6A__A549_top_hits_for_imaging_GI_scores.png`
+    * B: `imaging_analysis/PLOTS/barplot_of_average_classified_cells_scaled_data_top_hits_only.png`
+    * C:
 
 * **Figure 7**
-  * Script: ``
+  * Script(s):
+    * A:
+    * B and C: `MANUSCRIPT/SCRIPTS/F7BC__PCAWG_GTEx_hit_CNV.R`
+    * D: 
   * Output(s):
-    * 
-  * 
+    * A:
+    * B: `MANUSCRIPT/PLOTS/F7B__top_hits_GTEX_expression_tumour.png`
+    * C: `MANUSCRIPT/PLOTS/F7C__top_hits_GTEX_expression_normal.png`
+    * D:
 
 * **Extended Data Figure 3**
   * Script(s): 
@@ -77,6 +89,6 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
 
 * **Extended Data Figure 6**
 * Script: 
-    * B: ``
+    * B: `MANUSCRIPT/SCRIPTS/EF6D__Slc25a28_IMPC.R`
   * Output(s):
-    * B: ``
+    * B: `MANUSCRIPT/PLOTS/EF6D__Slc25a28_IMPC.png`

@@ -29,10 +29,10 @@ top_dir <- getwd()
 # Read in input files -----------------------------------------------------
 
 # Combined gene results
-full_results <- read.delim(file.path(top_dir, "DATA", "postprocessing", "combined_gene_level_results.tsv"), header = T, sep = "\t")
+full_results <- read.delim(file.path(top_dir, "combinatorial_crispr_screen_analysis", "DATA", "postprocessing", "combined_gene_level_results.tsv"), header = T, sep = "\t")
 
 # Binary results table
-binary_results <- read.delim(file.path(top_dir, "DATA", "postprocessing", "combined_gene_level_results.binary.tsv"), header = T)
+binary_results <- read.delim(file.path(top_dir, "combinatorial_crispr_screen_analysis", "DATA", "postprocessing", "combined_gene_level_results.binary.tsv"), header = T)
 
 
 # Set output path ---------------------------------------------------------

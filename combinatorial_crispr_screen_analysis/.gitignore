@@ -8,3 +8,6 @@ LOGS/*
 JupyterNotebooks/05*
 JupyterNotebooks/07*
 DATA/RDS/
+.DS_Store
+DATA
+METADATA
