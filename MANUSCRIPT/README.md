@@ -45,12 +45,11 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
 * **Figure 6**
   * Script(s):
     * A: `MANUSCRIPT/SCRIPTS/F6A__A549_top_hits_for_imaging_GI_scores.R`
-    * B: `imaging_analysis/SCRIPTS/imaging_analysis.R`
-    * C:
+    * B and C: `imaging_analysis/SCRIPTS/imaging_analysis.R`
   * Output(s):
     * A: `MANUSCRIPT/PLOTS/F6A__A549_top_hits_for_imaging_GI_scores.png`
     * B: `imaging_analysis/PLOTS/barplot_of_average_classified_cells_scaled_data_top_hits_only.png`
-    * C:
+    * C: `imaging_analysis/PLOTS/fold_change_classified_cells_scaled_fc_to_averaged_controls_minus_parentals.png`
 
 * **Figure 7**
   * Script(s):
