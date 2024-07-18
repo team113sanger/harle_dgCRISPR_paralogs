@@ -68,6 +68,10 @@ scaled_objects.narrow <- data.df |>
 scaled_objects.wide <- scaled_objects.narrow |>
   pivot_wider(names_from = name, values_from = c(raw, scaled)) 
 
+# Remove genes 
+scaled_objects.wide <- scaled_objects.wide |> 
+  filter(!Group_Target %in% c('TTC7A_TTC7B', 'INTS6_INTS6L', 'EAF1_EAF2'))
+
 #Calculate sum of classified objects only (i.e. remove those unclassified to allow us to work out percentage of classified cells)
 ## Question - should this be done before scaling, i.e. does removing the unclassified objects affect the scaling at all?? - Victoria?? 
 Classified <- scaled_objects.wide %>% rowwise() %>% 
@@ -342,7 +346,7 @@ Fold_Change_Classified_Cells <- grid.arrange(Fold_change_apop_combined,
                                              heights = c(1, 1, 1, 1.5))
 
 ## Save file
-ggsave(file.path(plate_directory, 'PLOTS', 'Fold_Change_Classified_Cells_Scaled_FC_to_Averaged_controls_minus_parentals.png'), 
+ggsave(file.path(top_dir, 'PLOTS', 'Fold_Change_Classified_Cells_Scaled_FC_to_Averaged_controls_minus_parentals.png'), 
        Fold_Change_Classified_Cells , dpi = 300, width = 12, height = 18)
 
 #### This figure still needs the stats adding
