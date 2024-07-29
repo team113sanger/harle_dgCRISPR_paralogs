@@ -14,10 +14,10 @@ To download the datasets and metadata used in the analysis of the combinatorial 
 cd combinatorial_crispr_screen_analysis
 ```
 
-2. Download the datasets from [Figshare](https://doi.org/10.6084/m9.figshare.25954027.v1).
+2. Download the datasets from [Figshare](https://doi.org/10.6084/m9.figshare.25954027.v4).
 
 ```
-curl -k -o dnld.zip -O https://figshare.com/ndownloader/articles/25954027/versions/2?folder_path=dnld
+curl -k -o dnld.zip -O https://figshare.com/ndownloader/articles/25954027/versions/4?folder_path=dnld
 unzip -j dnld.zip 'DATA.tar.gz' 'METADATA.tar.gz' && rm dnld.zip
 find . -name '*.tar.gz' -exec sh -c 'tar -xzvf "$1" -C "$(dirname "$1")" && rm "$1"' _ {} \;
 find DATA -name '*.tar.gz' -exec sh -c 'tar -xzvf "$1" -C "$(dirname "$1")" && rm "$1"' _ {} \;
@@ -37,10 +37,10 @@ To download the datasets used in the analysis of the imaging dataset.
 cd imaging_analysis
 ```
 
-2. Download the datasets from [Figshare](https://doi.org/10.6084/m9.figshare.25954027.v1).
+2. Download the datasets from [Figshare](https://doi.org/10.6084/m9.figshare.25954027.v4).
 
 ```
-curl -k -o dnld.zip -O https://figshare.com/ndownloader/articles/25954027/versions/2?folder_path=imaging_data
+curl -k -o dnld.zip -O https://figshare.com/ndownloader/articles/25954027/versions/4?folder_path=imaging_data
 unzip -j dnld.zip 'DATA.tar.gz' && rm dnld.zip
 find . -name '*.tar.gz' -exec sh -c 'tar -xzvf "$1" -C "$(dirname "$1")" && rm "$1"' _ {} \;
 find DATA -name '*.tar.gz' -exec sh -c 'tar -xzvf "$1" -C "$(dirname "$1")" && rm "$1"' _ {} \;

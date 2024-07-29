@@ -31,16 +31,11 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
     * A: `MANUSCRIPT/SCRIPTS/F5A__correlation_of_median_hit_GI_with_number_of_hits.R`
     * B: `MANUSCRIPT/SCRIPTS/F5B__range_of_GI_scores.R`
     * C: `MANUSCRIPT/SCRIPTS/F5C__ranking_of_top_50percent_hits.R`
-    * D: 
-    * E:
-    * F:  
+    * D, E and F: `MANUSCRIPT/SCRIPTS/PerformTissueAnalysis.ipynb` and `MANUSCRIPT/SCRIPTS/draw_heatmap_binary.ipynb`
   * Output(s):
     * A: `F5A__median_GI_of_hits_per_pair_v_total_hits.png`
     * B: `F5B__GI_range_of_hits_per_cell_line.png`
     * C: `F5C__cell_line_ranking_of_hits_in_more_than_50pct_of_lines.png`
-    * D: 
-    * E:
-    * F:  
 
 * **Figure 6**
   * Script(s):
@@ -53,14 +48,12 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
 
 * **Figure 7**
   * Script(s):
-    * A:
+    * A: `MANUSCRIPT/SCRIPTS/F7A__PCAWG_PanCan_hit_CNV.R`
     * B and C: `MANUSCRIPT/SCRIPTS/F7BC__PCAWG_GTEx_hit_CNV.R`
-    * D: 
   * Output(s):
-    * A:
+    * A: `MANUSCRIPT/PLOTS/F7A__CNV_for_top_hits.png`
     * B: `MANUSCRIPT/PLOTS/F7B__top_hits_GTEX_expression_tumour.png`
     * C: `MANUSCRIPT/PLOTS/F7C__top_hits_GTEX_expression_normal.png`
-    * D:
 
 * **Extended Data Figure 3**
   * Script(s): 
