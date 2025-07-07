@@ -1,5 +1,8 @@
 # A compendium of synthetic lethal gene pairs defined by extensive combinatorial pan-cancer CRISPR screening
 
+[![DOI](https://zenodo.org/badge/628953602.svg)](https://doi.org/10.5281/zenodo.15827200)
+
+
 ## Installing dependencies 
 
 Please see [INSTALL_README.md](INSTALL_README.md) for instructions on installing dependencies.
