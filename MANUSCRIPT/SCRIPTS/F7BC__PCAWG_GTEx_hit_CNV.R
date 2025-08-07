@@ -4,19 +4,130 @@
 # Load libraries ----------------------------------------------------------
 
 library(tidyverse)
+library(stringr)
+
 
 # Read in input files -----------------------------------------------------
 
 # Set top level directory
 top_dir <- getwd()
 
-# Change this path for scripts to run!
-expression_data <- read_delim("PCAWG_GTEx_tumour_normal_gene_pair_TPMs.tsv", delim = "\t", trim_ws = TRUE)
+# Normalised expression data per patient from https://www.ebi.ac.uk/gxa/experiments/E-MTAB-5423/Results
+by_patient <- read.table(file.path(top_dir, 'E-MTAB-5423-query-results.tpms.tsv'),sep = '\t',header = TRUE)
 
-# Change this path for output directory!
+# Expression averages across tumour and tissue types https://www.ebi.ac.uk/gxa/experiments/E-MTAB-5200/Results
+# Including normal tissue GTEx data for comparison 
+by_tumour <- read.table(file.path(top_dir, 'E-MTAB-5200-query-results.tpms.tsv'),sep = '\t',header = TRUE)
+
 output_plot_dir <- file.path(top_dir, 'MANUSCRIPT', 'PLOTS')
 
+annotated_library <- read.table(file.path(top_dir, 'METADATA','libraries','paralog_library.tsv'),sep = '\t',header = TRUE)
+
+
 # Process data ------------------------------------------------------------
+
+#Identifying gene pairs in the library
+paired_library.pairs <- annotated_library %>% 
+  filter( guide_type == 'gene|gene') %>% 
+  select( sorted_gene_pair ) %>% 
+  unique() %>%
+  separate(sorted_gene_pair, sep = "\\|", into = c( 'l_gene', 'r_gene' ), remove = F )
+
+paired_library.pairs$sorted_gene_pair <- sub("\\|","_",paired_library.pairs$sorted_gene_pair)
+
+#Limit expression data to gene pairs in the screen 
+by_tumour_type.subset <- by_tumour_type %>% 
+  filter(Gene.Name %in% paired_library.pairs$l_gene | Gene.Name %in% paired_library.pairs$r_gene )
+
+by_tumour_type.subset_long <- by_tumour_type.subset %>% pivot_longer(cols=!Gene.ID & !Gene.Name,names_to = "label",values_to = "TPM")
+
+by_patient.subset <- by_patient %>% 
+  filter(Gene.Name %in% paired_library.pairs$l_gene | Gene.Name %in% paired_library.pairs$r_gene )
+missing_genes <- setdiff( c( paired_library.pairs$l_gene, paired_library.pairs$r_gene), by_patient.subset$Gene.Name )
+
+# Labelling tumours vs normal
+by_tumour_type.subset_long <- by_tumour_type.subset_long %>% 
+  mutate(class=case_when(
+    str_detect(label,"GTEx") ~ "normal - GTEX",
+    str_detect(label,"adjacent") ~ "normal - tumour adjacent",
+    TRUE ~ "tumour"
+  ))
+
+#Adding the tumour type
+tumour_TPMs <- by_tumour_type.subset_long %>% 
+  filter( class == 'tumour') %>% 
+  separate(label, sep = "\\.\\.", into = c( 'tumour_type', 'tissue_type' ), remove = F )
+
+#Adding tissue type and filter out normal - tumour adjacent
+normal_TPMs <- by_tumour_type.subset_long %>% 
+  filter( class == 'normal - GTEX') %>% 
+  separate(label, sep = "\\.\\.\\.", into = c( 'normal', 'GTEx','tissue_type' ), remove = F ) %>%
+  select(-c(normal,GTEx))
+
+#Averaging across the expression values for different regions of the same tissue 
+normal_TPM_averages <- normal_TPMs %>%
+  group_by(Gene.ID,Gene.Name,tissue_type) %>% 
+  summarise( average_normal_TPM = mean(TPM) )
+
+# Comparing TPMs in the normal with TPMs in tumour
+tumour_normal_TPMs <- tumour_TPMs %>%
+  left_join(normal_TPM_averages,by=c('Gene.ID','Gene.Name','tissue_type'))
+
+# Checking expression of each gene in tumour and normal - gene A tumour TPM gene A normal TPM 
+gene_pair_tumour_normal_TPMs <- data.frame()
+for ( i in 1:length( paired_library.pairs$sorted_gene_pair ) ) {
+  gene_pair <- as.vector( paired_library.pairs$sorted_gene_pair[i] )
+  geneA <- paired_library.pairs$l_gene[i]
+  geneB <- paired_library.pairs$r_gene[i]
+  
+  if ( !geneA %in% missing_genes & !geneB %in% missing_genes ) {
+    tmp.df <- tumour_normal_TPMs %>% 
+      filter( Gene.Name == geneA | Gene.Name == geneB ) %>% 
+      select( Gene.Name, tumour_type, tissue_type, TPM) %>% 
+      spread( Gene.Name, TPM ) %>%
+      mutate( 'sorted_pair_id' = gene_pair,
+              'geneA.tumour.TPM' = get( geneA ),
+              'geneB.tumour.TPM' = get( geneB ),
+              'geneA'=geneA,
+              'geneB'=geneB) %>%
+      select(tumour_type,tissue_type, sorted_pair_id,geneA,geneB, geneA.tumour.TPM, geneB.tumour.TPM)
+    if ( nrow( gene_pair_tumour_normal_TPMs ) == 0 ) {
+      gene_pair_tumour_normal_TPMs <- tmp.df
+    } else {
+      gene_pair_tumour_normal_TPMs<- rbind( gene_pair_tumour_normal_TPMs, tmp.df )
+    }
+  }
+}                         
+
+gene_pair_normal_TPMs <- data.frame()
+for ( i in 1:length( paired_library.pairs$sorted_gene_pair ) ) {
+  gene_pair <- as.vector( paired_library.pairs$sorted_gene_pair[i] )
+  geneA <- paired_library.pairs$l_gene[i]
+  geneB <- paired_library.pairs$r_gene[i]
+  
+  if ( !geneA %in% missing_genes & !geneB %in% missing_genes ) { 
+    tmp.df <- tumour_normal_TPMs %>% 
+      filter( Gene.Name == geneA | Gene.Name == geneB ) %>% 
+      select( Gene.Name, tumour_type, tissue_type, average_normal_TPM) %>% 
+      spread( Gene.Name, average_normal_TPM ) %>% 
+      mutate( 'sorted_pair_id' = gene_pair,
+              'geneA.normal.TPM' = get( geneA ),
+              'geneB.normal.TPM' = get( geneB ),
+              'geneA'=geneA,
+              'geneB'=geneB) %>%
+      select(tumour_type,tissue_type, sorted_pair_id,geneA,geneB, geneA.normal.TPM, geneB.normal.TPM)
+    if ( nrow( gene_pair_normal_TPMs ) == 0 ) {
+      gene_pair_normal_TPMs <- tmp.df 
+    } else {
+      gene_pair_normal_TPMs<- rbind( gene_pair_normal_TPMs, tmp.df )
+    }
+  }
+}         
+
+gene_pair_tumour_normal_TPMs <- gene_pair_tumour_normal_TPMs %>%
+  left_join(gene_pair_normal_TPMs,by=c('tumour_type','tissue_type','sorted_pair_id','geneA','geneB'))
+
+expression_data <- gene_pair_tumour_normal_TPMs
 
 # Select only top hits
 top_hits <- expression_data |> 
