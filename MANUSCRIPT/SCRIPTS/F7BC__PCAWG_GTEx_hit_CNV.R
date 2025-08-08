@@ -17,7 +17,7 @@ by_patient <- read.table(file.path(top_dir, 'E-MTAB-5423-query-results.tpms.tsv'
 
 # Expression averages across tumour and tissue types https://www.ebi.ac.uk/gxa/experiments/E-MTAB-5200/Results
 # Including normal tissue GTEx data for comparison 
-by_tumour <- read.table(file.path(top_dir, 'E-MTAB-5200-query-results.tpms.tsv'),sep = '\t',header = TRUE)
+by_tumour_type <- read.table(file.path(top_dir, 'E-MTAB-5200-query-results.tpms.tsv'),sep = '\t',header = TRUE)
 
 output_plot_dir <- file.path(top_dir, 'MANUSCRIPT', 'PLOTS')
 
@@ -34,6 +34,11 @@ paired_library.pairs <- annotated_library %>%
   separate(sorted_gene_pair, sep = "\\|", into = c( 'l_gene', 'r_gene' ), remove = F )
 
 paired_library.pairs$sorted_gene_pair <- sub("\\|","_",paired_library.pairs$sorted_gene_pair)
+
+#Replace NA with 0 
+by_patient <- by_patient %>% replace(is.na(.), 0)
+
+by_tumour_type <- by_tumour_type %>% replace(is.na(.), 0)
 
 #Limit expression data to gene pairs in the screen 
 by_tumour_type.subset <- by_tumour_type %>% 
