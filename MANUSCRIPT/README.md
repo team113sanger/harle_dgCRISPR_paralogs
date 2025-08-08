@@ -50,10 +50,12 @@ The scripts source `prepare_data.R` to provide common paths, palettes, input dat
   * Script(s):
     * A: `MANUSCRIPT/SCRIPTS/F7A__PCAWG_PanCan_hit_CNV.R`
     * B and C: `MANUSCRIPT/SCRIPTS/F7BC__PCAWG_GTEx_hit_CNV.R`
+    * D: `MANUSCRIPT/SCRIPTS/F7D__screen_hit_expression_tumour_normal_venn.R`
   * Output(s):
     * A: `MANUSCRIPT/PLOTS/F7A__CNV_for_top_hits.png`
     * B: `MANUSCRIPT/PLOTS/F7B__top_hits_GTEX_expression_tumour.png`
     * C: `MANUSCRIPT/PLOTS/F7C__top_hits_GTEX_expression_normal.png`
+    * D: `MANUSCRIPT/PLOTS/F7D__screen_hits_GTEX_expression_tumour_normal.pdf`
 
 * **Extended Data Figure 3**
   * Script(s): 
